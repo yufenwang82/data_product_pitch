@@ -1,0 +1,73 @@
+---
+title       : Data Product Course Project-Reproducible Pitch
+subtitle    : 
+author      : Yu-Fen Wang
+Date        : 2017/11/6
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [html,shiny]
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Pitch Intro
+
+This is the pitch presentation of the app I created as the Data Product course project In this presentation, I will enclose the code I made the app and the link to the app
+
+---  
+
+## The function of this app
+
+The data covers the Daily Closing Prices of Major European Stock Indices from 1991-1998 The indices are: Germany DAX (Ibis), Switzerland SMI, France CAC, and UK FTSE.
+I created an app in which you can choose one of these 4 indices and it will automatively plot its closing price from 1991-1998 for you.
+
+---
+## The code for making app
+
+
+```r
+library(shiny)
+library(datasets)
+data("EuStockMarkets")
+shinyApp(
+    ui=fluidPage(
+    titlePanel("Closing Prices of Major European Stock from 1991 to 1998"),
+    sidebarLayout(
+        sidebarPanel(
+        radioButtons("index", "Please Select Index:",
+                     c("DAX" = "DAX",
+                       "SMI" = "SMI",
+                       "CAC" = "CAC",
+                       "FTSE" = "FTSE"))))),
+    server=(function(input, output){
+       output$Plot <- renderPlot({
+    if (input$index=="DAX"){
+        plot(EuStockMarkets[,1],ylab="DAX closing price",xlab="Year")
+    } else if (input$index=="SMI"){
+        plot(EuStockMarkets[,2],ylab="SMI closing price",xlab="Year")
+    }else if (input$index=="CAC"){
+        plot(EuStockMarkets[,3],ylab="CAC closing price",xlab="Year")
+    }else{plot(EuStockMarkets[,4],ylab="FTSE closing price",xlab="Year")
+    }})}))        
+```
+
+```
+## Error in sidebarLayout(sidebarPanel(radioButtons("index", "Please Select Index:", : argument "mainPanel" is missing, with no default
+```
+
+---
+## links for app, github and presentation
+You may fint the app at: https://andrea-yufen-wang.shinyapps.io/Data_product_project/
+
+link to github for the app:
+https://github.com/yufenwang82/Data_Product_project
+
+
+
+Thank you!
+---
+
+
+
+
